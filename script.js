@@ -3,8 +3,9 @@ const display = document.querySelector("#display");
 const numbers = document.querySelectorAll("#number");
 const operations = document.querySelectorAll("#operation");
 const equal = document.querySelector("#equal");
-const results = [];
 
+let results = [];
+let symbols = [];
 let num1 = '';
 let num2 = '';
 let symbol = '';
@@ -15,23 +16,72 @@ display.textContent = 0;
 clear.addEventListener("click", ()=> {
     display.textContent = 0;
     num2 = '';
+    results = [];
 });
 
 // 2. Basic Operations
 function add (num1, num2){
-    console.log(parseInt(num1) + parseInt(num2)) ;
+    num1 = parseInt(results[0]);
+    num2 = parseInt(results[1]);
+    // using fibonacci for operating 
+    for (let i = 2; i <= results.length; i++) {
+        let current = num1 + num2;
+        num2 = num1;
+        num1 = current;
+    }
+    console.log(num1);
+    results.push(num1);
+    results.splice(0,2);
+
+    display.textContent = num1;
 };
 
 function substract (num1, num2){
-    return parseInt(num1 - num2);
+    num1 = parseInt(results[0]);
+    num2 = parseInt(results[1]);
+    // using fibonacci for operating 
+    for (let i = 2; i <= results.length; i++) {
+        let current = num1 - num2;
+        num2 = num1;
+        num1 = current;
+    }
+    console.log(num1);
+    results.push(num1);
+    results.splice(0,2);
+
+    display.textContent = num1;
 };
 
 function multiply (num1, num2){
-    return parseInt(num1 * num2);
+    num1 = parseInt(results[0]);
+    num2 = parseInt(results[1]);
+    // using fibonacci for operating 
+    for (let i = 2; i <= results.length; i++) {
+        let current = num1 * num2;
+        num2 = num1;
+        num1 = current;
+    }
+    console.log(num1);
+    results.push(num1);
+    results.splice(0,2);
+
+    display.textContent = num1;
 };
 
 function divide (num1, num2){
-    return parseInt(num1 / num2);
+    num1 = parseInt(results[0]);
+    num2 = parseInt(results[1]);
+    // using fibonacci for operating 
+    for (let i = 2; i <= results.length; i++) {
+        let current = num1 / num2;
+        num2 = num1;
+        num1 = current;
+    }
+    console.log(num1);
+    results.push(num1);
+    results.splice(0,2);
+
+    display.textContent = num1;
 };
 
 
@@ -50,32 +100,46 @@ function operator (num1, symbol, num2){
 };
 
 //4. listen to the event of the buttons
-
 for (let j = 0; j < numbers.length; j++) {
     const number = numbers[j];
     number.addEventListener("click", ()=> {
         num2 += number.textContent
-        updateUi()
+        updateUiNumbers()
     });
 };
 
+//7. Update UI Numbers
+function updateUiNumbers (){
+    display.textContent = parseInt(num2);
+}
 
-// 5. Update the UI
-function updateUi (){
-    display.textContent = num2;
+// 5. Update the UI Symbols
+function updateUiSymbols (){
+    if (symbol === ''){
+        display.textContent = parseInt(num2);
+    } else if (symbol != ''){
+        display.textContent = parseInt(results[0])
+    }
 };
 
 // 6. listen to the operations
 for (let j = 0; j < operations.length; j++) {
-    const operator = operations[j];
-    operator.addEventListener("click", ()=> {
-        symbol = operator.textContent;
+    const operato = operations[j];
+    
+    operato.addEventListener("click", ()=> {
+        symbols.push(operato.textContent);
+        symbol = symbols[0];
         num1 += num2;
-        results.push(num1);
-        num1= '';
+        results.push(parseInt(num1));
+        num1 = '';
         num2 = '';
-        updateUi()
+        
+        if (results.length >= 2){
+            operator(num1, symbol, num2)
+        } 
+        
+        if (results.length < 2){
+            updateUiSymbols()
+        }
     });
 };
-
-//usar reduce para obtener el valor en funcion de la operacion, no mostrar el resultado hasta que se escriba el simbolo o igula  
