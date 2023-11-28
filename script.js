@@ -32,6 +32,8 @@ function add (num1, num2){
     console.log(num1);
     results.push(num1);
     results.splice(0,2);
+    symbols.splice(0,1);
+
 
     display.textContent = num1;
 };
@@ -48,6 +50,7 @@ function substract (num1, num2){
     console.log(num1);
     results.push(num1);
     results.splice(0,2);
+    symbols.splice(0,1);
 
     display.textContent = num1;
 };
@@ -64,6 +67,8 @@ function multiply (num1, num2){
     console.log(num1);
     results.push(num1);
     results.splice(0,2);
+    symbols.splice(0,1);
+
 
     display.textContent = num1;
 };
@@ -80,6 +85,8 @@ function divide (num1, num2){
     console.log(num1);
     results.push(num1);
     results.splice(0,2);
+    symbols.splice(0,1);
+
 
     display.textContent = num1;
 };
