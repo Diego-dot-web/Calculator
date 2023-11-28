@@ -100,7 +100,7 @@ function operator (num1, symbol, num2){
         substract(num1, num2)
     } else if (symbol === '*'){
         multiply(num1, num2)
-    } else if (symbol === '-'){
+    } else if (symbol === '/'){
         divide(num1, num2)
     };
     
