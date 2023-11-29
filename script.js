@@ -95,16 +95,26 @@ function divide (num1, num2){
 //3.  Call certain operator
 function operator (num1, symbol, num2){
     if (symbol === '+'){
-        add(num1, num2)
+        add(num1, num2);
     } else if (symbol === '-'){
-        substract(num1, num2)
+        substract(num1, num2);
     } else if (symbol === '*'){
-        multiply(num1, num2)
+        multiply(num1, num2);
     } else if (symbol === '/'){
-        divide(num1, num2)
+        divide(num1, num2);
     };
     
 };
+
+// 8. Button equals 
+equal.addEventListener("click", ()=> {
+    symbol = symbols[0];
+    num1 += num2;
+    results.push(parseInt(num1));
+    // num1 = '';
+    num2 = num1;
+    operator(num1, symbol, num2);
+});
 
 //4. listen to the event of the buttons
 for (let j = 0; j < numbers.length; j++) {
