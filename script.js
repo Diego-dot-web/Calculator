@@ -11,12 +11,12 @@ let num2 = '';
 let symbol = '';
 display.textContent = 0;
 
-
-// 1. clear the display
-clear.addEventListener("click", ()=> {
+// 1. Clear the display
+clear.addEventListener("click", () => {
     display.textContent = 0;
     num2 = '';
     results = [];
+    symbols = [];
 });
 
 // 2. Basic Operations
@@ -117,47 +117,47 @@ equal.addEventListener("click", ()=> {
     operator(num1, symbol, num2);
 });
 
-//4. listen to the event of the buttons
+// 4. Listen to the event of the buttons
 for (let j = 0; j < numbers.length; j++) {
     const number = numbers[j];
-    number.addEventListener("click", ()=> {
-        num2 += number.textContent
-        updateUiNumbers()
+    number.addEventListener("click", () => {
+        num2 += number.textContent;
+        updateUiNumbers();
     });
-};
+}
 
-//7. Update UI Numbers
-function updateUiNumbers (){
-    display.textContent = parseInt(num2);
+// 7. Update UI Numbers
+function updateUiNumbers() {
+    display.textContent = Number(num2);
 }
 
 // 5. Update the UI Symbols
-function updateUiSymbols (){
-    if (symbol === ''){
-        display.textContent = parseInt(num2);
-    } else if (symbol != ''){
-        display.textContent = parseInt(results[0])
+function updateUiSymbols() {
+    if (symbol === '') {
+        display.textContent = Number(num2);
+    } else if (symbol !== '') {
+        display.textContent = results[0];
     }
-};
+}
 
-// 6. listen to the operations
+// 6. Listen to the operations
 for (let j = 0; j < operations.length; j++) {
     const operato = operations[j];
-    
-    operato.addEventListener("click", ()=> {
+
+    operato.addEventListener("click", () => {
         symbols.push(operato.textContent);
         symbol = symbols[0];
         num1 = num2;
         results.push(parseInt(num2));
         num1 = '';
         num2 = '';
-        
-        if (results.length >= 2){
-            operator(num1, symbol, num2)
-        } 
-        
-        if (results.length < 2){
-            updateUiSymbols()
+
+        if (results.length >= 2) {
+            operator(num1, symbol, num2);
+        }
+
+        if (results.length < 2) {
+            updateUiSymbols();
         }
     });
 };
