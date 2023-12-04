@@ -21,8 +21,8 @@ clear.addEventListener("click", () => {
 
 // 2. Basic Operations
 function add (num1, num2){
-    num1 = parseInt(results[0]);
-    num2 = parseInt(results[1]);
+    num1 = Number(results[0]);
+    num2 = Number(results[1]);
 
     // using fibonacci for operating 
     for (let i = 2; i <= results.length; i++) {
@@ -40,8 +40,8 @@ function add (num1, num2){
 };
 
 function substract (num1, num2){
-    num1 = parseInt(results[0]);
-    num2 = parseInt(results[1]);
+    num1 = Number(results[0]);
+    num2 = Number(results[1]);
     // using fibonacci for operating 
     for (let i = 2; i <= results.length; i++) {
         let current = num1 - num2;
@@ -57,8 +57,8 @@ function substract (num1, num2){
 };
 
 function multiply (num1, num2){
-    num1 = parseInt(results[0]);
-    num2 = parseInt(results[1]);
+    num1 = Number(results[0]);
+    num2 = Number(results[1]);
     // using fibonacci for operating 
     for (let i = 2; i <= results.length; i++) {
         let current = num1 * num2;
@@ -75,8 +75,8 @@ function multiply (num1, num2){
 };
 
 function divide (num1, num2){
-    num1 = parseInt(results[0]);
-    num2 = parseInt(results[1]);
+    num1 = Number(results[0]);
+    num2 = Number(results[1]);
     // using fibonacci for operating 
     for (let i = 2; i <= results.length; i++) {
         let current = num1 / num2;
@@ -111,10 +111,10 @@ function operator (num1, symbol, num2){
 equal.addEventListener("click", ()=> {
     symbol = symbols[0];
     num1 = display.textContent;
-    results.push(parseInt(num1));
+    results.push(Number(num1));
+    operator(num1, symbol, num2);
     num1 = '';
     num2 = '';
-    operator(num1, symbol, num2);
 });
 
 // 4. Listen to the event of the buttons
@@ -148,7 +148,7 @@ for (let j = 0; j < operations.length; j++) {
         symbols.push(operato.textContent);
         symbol = symbols[0];
         num1 = num2;
-        results.push(parseInt(num2));
+        results.push(Number(num2));
         num1 = '';
         num2 = '';
 
