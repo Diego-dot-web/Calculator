@@ -21,90 +21,43 @@ clear.addEventListener("click", () => {
 
 // 2. Basic Operations
 function add (num1, num2){
-    num1 = Number(results[0]);
-    num2 = Number(results[1]);
-
-    // using fibonacci for operating 
-    for (let i = 2; i <= results.length; i++) {
-        let current = num1 + num2;
-        num2 = num1;
-        num1 = current;
-    }
-    console.log(num1);
-    results.push(num1);
-    results.splice(0,2);
-    symbols.splice(0,1);
-
-
-    display.textContent = num1;
+    return Number(num1) + Number(num2)
 };
 
 function substract (num1, num2){
-    num1 = Number(results[0]);
-    num2 = Number(results[1]);
-    // using fibonacci for operating 
-    for (let i = 2; i <= results.length; i++) {
-        let current = num1 - num2;
-        num2 = num1;
-        num1 = current;
-    }
-    console.log(num1);
-    results.push(num1);
-    results.splice(0,2);
-    symbols.splice(0,1);
-
-    display.textContent = num1;
+    return Number(num1) - Number(num2)
 };
 
 function multiply (num1, num2){
-    num1 = Number(results[0]);
-    num2 = Number(results[1]);
-    // using fibonacci for operating 
-    for (let i = 2; i <= results.length; i++) {
-        let current = num1 * num2;
-        num2 = num1;
-        num1 = current;
-    }
-    console.log(num1);
-    results.push(num1);
-    results.splice(0,2);
-    symbols.splice(0,1);
-
-
-    display.textContent = num1;
+    return Number(num1) * Number(num2)
 };
 
 function divide (num1, num2){
-    num1 = Number(results[0]);
-    num2 = Number(results[1]);
-    // using fibonacci for operating 
-    for (let i = 2; i <= results.length; i++) {
-        let current = num1 / num2;
-        num2 = num1;
-        num1 = current;
-    }
-    console.log(num1);
-    results.push(num1);
-    results.splice(0,2);
-    symbols.splice(0,1);
-
-
-    display.textContent = num1;
+    return Number(num1) / Number(num2)
 };
 
 
 //3.  Call certain operator
 function operator (num1, symbol, num2){
-    if (symbol === '+'){
-        add(num1, num2);
-    } else if (symbol === '-'){
-        substract(num1, num2);
-    } else if (symbol === '*'){
-        multiply(num1, num2);
-    } else if (symbol === '/'){
-        divide(num1, num2);
-    };
+    num1 = Number(results[0])
+    num2 = Number(results[1])
     
+    if (symbol === '+'){
+        results.push(add(num1, num2));
+        display.textContent = add(num1, num2);
+    } else if (symbol === '-'){
+        results.push(substract(num1, num2));
+        display.textContent = substract(num1, num2);
+    } else if (symbol === '*'){
+        results.push(multiply(num1, num2));
+        display.textContent = multiply(num1, num2);
+    } else if (symbol === '/'){
+        results.push(divide(num1, num2));
+        display.textContent = divide(num1, num2);
+    };      
+
+    results.splice(0,2);
+    symbols.splice(0,1);
 };
 
 // 8. Button equals 
@@ -145,6 +98,15 @@ for (let j = 0; j < operations.length; j++) {
     const operato = operations[j];
 
     operato.addEventListener("click", () => {
+        
+        // if(num2 === ""){
+        //     num2 = Number(display.textContent);
+        //     num1 = num2;
+        //     results.push(Number(num2));
+        //     num1 = '';
+        //     num2 = '';
+        // }
+
         symbols.push(operato.textContent);
         symbol = symbols[0];
         num1 = num2;
