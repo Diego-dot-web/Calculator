@@ -39,6 +39,7 @@ function divide (num1, num2){
 
 //3.  Call certain operator
 function operator (num1, symbol, num2){
+    symbol = symbols[0];
     num1 = Number(results[0])
     num2 = Number(results[1])
     
@@ -62,12 +63,8 @@ function operator (num1, symbol, num2){
 
 // 8. Button equals 
 equal.addEventListener("click", ()=> {
-    symbol = symbols[0];
-    num1 = display.textContent;
-    results.push(Number(num1));
+    results.push(Number(display.textContent));
     operator(num1, symbol, num2);
-    num1 = '';
-    num2 = '';
 });
 
 // 4. Listen to the event of the buttons
@@ -99,18 +96,16 @@ for (let j = 0; j < operations.length; j++) {
 
     operato.addEventListener("click", () => {
         
-        // if(num2 === ""){
-        //     num2 = Number(display.textContent);
-        //     num1 = num2;
-        //     results.push(Number(num2));
-        //     num1 = '';
-        //     num2 = '';
-        // }
+        if(num2 === ""){
+            results.push(display.textContent);
+            num1 = '';
+            num2 = '';
+        }
 
         symbols.push(operato.textContent);
         symbol = symbols[0];
         num1 = num2;
-        results.push(Number(num2));
+        results.push(num2);
         num1 = '';
         num2 = '';
 
