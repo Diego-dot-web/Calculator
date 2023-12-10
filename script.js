@@ -56,7 +56,7 @@ function operator (num1, symbol, num2){
         results.push(divide(num1, num2));
         display.textContent = divide(num1, num2);
     };      
-
+    
     results.splice(0,2);
     symbols.splice(0,1);
 };
@@ -64,7 +64,11 @@ function operator (num1, symbol, num2){
 // 8. Button equals 
 equal.addEventListener("click", ()=> {
     results.push(Number(display.textContent));
-    operator(num1, symbol, num2);
+    if(results.length>=2) operator(num1, symbol, num2);
+    if (results.length < 2){
+        num1 = results[0];
+        num2 = "";
+    }
 });
 
 // 4. Listen to the event of the buttons
@@ -93,26 +97,19 @@ function updateUiSymbols() {
 // 6. Listen to the operations
 for (let j = 0; j < operations.length; j++) {
     const operato = operations[j];
-
+    
     operato.addEventListener("click", () => {
-        
-        if(num2 === ""){
-            results.push(display.textContent);
-            num1 = '';
-            num2 = '';
-        }
-
         symbols.push(operato.textContent);
         symbol = symbols[0];
         num1 = num2;
         results.push(num2);
         num1 = '';
         num2 = '';
-
+        
         if (results.length >= 2) {
             operator(num1, symbol, num2);
         }
-
+        
         if (results.length < 2) {
             updateUiSymbols();
         }
