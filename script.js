@@ -9,6 +9,7 @@ let symbols = [];
 let num1 = '';
 let num2 = '';
 let symbol = '';
+let check = '';
 display.textContent = 0;
 
 // 1. Clear the display
@@ -67,7 +68,7 @@ equal.addEventListener("click", ()=> {
     if(results.length>=2) operator(num1, symbol, num2);
     if (results.length < 2){
         num1 = results[0];
-        num2 = "";
+        check = "on";
     }
 });
 
@@ -112,6 +113,10 @@ for (let j = 0; j < operations.length; j++) {
         
         if (results.length < 2) {
             updateUiSymbols();
+        }
+
+        if (results.length < 2 && check === "on"){
+            num2 = numbers.textContent
         }
     });
 };
