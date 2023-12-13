@@ -72,7 +72,9 @@ function handleOperator (op){
 
 // 6. Button equals 
 equal.addEventListener("click", ()=> {
-    if (currentValue != '' && previousValue != ''){
+    if(currentValue === "0" && symbol === "/"){
+        display.textContent = "You dumbass"
+    } else if (currentValue != '' && previousValue != ''){
         operator();
         currentValue = previousValue;
         previousValue = ""
@@ -81,7 +83,7 @@ equal.addEventListener("click", ()=> {
         } else {
             display.textContent = currentValue.slice(0,5) + "...";
         }
-    }
+    } 
 });
 
 //7. Listen to the decimal
