@@ -4,13 +4,10 @@ const numbers = document.querySelectorAll("#number");
 const operations = document.querySelectorAll("#operation");
 const equal = document.querySelector("#equal");
 
-let results = [];
-let symbols = [];
 let num1 = '';
 let num2 = '';
 let symbol = '';
 let check = '';
-display.textContent = 0;
 
 // 1. Clear the display
 clear.addEventListener("click", () => {
@@ -40,9 +37,9 @@ function divide (num1, num2){
 
 //3.  Call certain operator
 function operator (num1, symbol, num2){
-    symbol = symbols[0];
-    num1 = Number(results[0])
-    num2 = Number(results[1])
+    symbol = operations.textContent;
+    num1 = Number(num2)
+    num2 = Number(display.textContent)
     
     if (symbol === '+'){
         results.push(add(num1, num2));
@@ -58,8 +55,6 @@ function operator (num1, symbol, num2){
         display.textContent = divide(num1, num2);
     };      
     
-    results.splice(0,2);
-    symbols.splice(0,1);
 };
 
 // 8. Button equals 
@@ -68,7 +63,6 @@ equal.addEventListener("click", ()=> {
     if(results.length>=2) operator(num1, symbol, num2);
     if (results.length < 2){
         num1 = results[0];
-        check = "on";
     }
 });
 
@@ -100,23 +94,13 @@ for (let j = 0; j < operations.length; j++) {
     const operato = operations[j];
     
     operato.addEventListener("click", () => {
-        symbols.push(operato.textContent);
-        symbol = symbols[0];
+        
         num1 = num2;
-        results.push(num2);
-        num1 = '';
         num2 = '';
         
-        if (results.length >= 2) {
-            operator(num1, symbol, num2);
-        }
         
-        if (results.length < 2) {
-            updateUiSymbols();
-        }
-
-        if (results.length < 2 && check === "on"){
-            num2 = numbers.textContent
-        }
+        operator(num1, symbol, num2);
+        
+        
     });
 };
