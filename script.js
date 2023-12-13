@@ -3,87 +3,95 @@ const display = document.querySelector("#display");
 const numbers = document.querySelectorAll("#number");
 const operations = document.querySelectorAll("#operation");
 const equal = document.querySelector("#equal");
+const decimal = document.querySelector("#decimal");
 
-let num1 = '';
-let num2 = '';
+let previousValue = '';
+let currentValue = '';
 let symbol = '';
-let check = '';
 
 // 1. Clear the display
 clear.addEventListener("click", () => {
     display.textContent = 0;
-    num2 = '';
-    num1 = '';
+    currentValue = '';
+    previousValue = '';
+    symbol = '';
 });
 
-// 2. Basic Operations
-function add (num1, num2){
-    return Number(num1) + Number(num2)
-};
-
-function substract (num1, num2){
-    return Number(num1) - Number(num2)
-};
-
-function multiply (num1, num2){
-    return Number(num1) * Number(num2)
-};
-
-function divide (num1, num2){
-    return Number(num1) / Number(num2)
-};
-
-// 3. Listen to the numbers buttons
+// 2. Listen to the numbers buttons
 numbers.forEach(number => {
-    number.addEventListener("click", function(){
-        num2 += number.textContent
-        display.textContent = Number(num2)   
+    number.addEventListener("click", function(e){
+        handleNumber(e.target.textContent);
+        display.textContent =  currentValue;   
     })
 });
 
-//4.  Call certain operator
-function operator (num1, symbol, num2){
-    symbol = operations.textContent;
-    num1 = Number(num2)
-    num2 = Number(display.textContent)
-    
-    if (symbol === '+'){
-        results.push(add(num1, num2));
-        display.textContent = add(num1, num2);
-    } else if (symbol === '-'){
-        results.push(substract(num1, num2));
-        display.textContent = substract(num1, num2);
-    } else if (symbol === '*'){
-        results.push(multiply(num1, num2));
-        display.textContent = multiply(num1, num2);
-    } else if (symbol === '/'){
-        results.push(divide(num1, num2));
-        display.textContent = divide(num1, num2);
-    };      
-    
-};
-
-// 5. Update the UI Symbols
-function updateUiSymbols() {
-    if (symbol === '') {
-        display.textContent = Number(num2);
-    } else if (symbol !== '') {
-        display.textContent = results[0];
+//2.2 Hande numbers
+function handleNumber(num){
+    if (currentValue.length <= 5){
+        currentValue += num;
     }
 }
 
-// 6. Listen to the operations
-for (let j = 0; j < operations.length; j++) {
-    const operato = operations[j];
+//3.  Call certain operator
+function operator (){
+    previousValue = Number(previousValue);
+    currentValue = Number(currentValue);
+
+    if (symbol === '+'){
+        previousValue += currentValue
+    } else if (symbol === '-'){
+        previousValue -= currentValue
+    } else if (symbol === '*'){
+        previousValue *= currentValue
+    } else if (symbol === '/'){
+        previousValue /= currentValue
+    };  
     
-    operato.addEventListener("click", () => {
-        num1 = num2;
-        num2 = '';
-        operator(num1, symbol, num2);
-    });
+    previousValue = roundNumber(previousValue)
+    previousValue = previousValue.toString();
+    currentValue = currentValue.toString();
 };
 
-// 7. Button equals 
-equal.addEventListener("click", ()=> {
+//4. round numbers
+function roundNumber(num){
+    return Math.round(num * 1000)/1000;
+};
 
+// 5. Listen to the operations
+operations.forEach((operato) => operato.addEventListener("click", function(e){
+    handleOperator(e.target.textContent);
+    display.textContent = previousValue;
+}));;
+
+//5.5 handle operators
+function handleOperator (op){
+    symbol = op;
+    previousValue = currentValue;
+    currentValue = '';
+}
+
+// 6. Button equals 
+equal.addEventListener("click", ()=> {
+    if (currentValue != '' && previousValue != ''){
+        operator();
+        currentValue = previousValue;
+        previousValue = ""
+        if(currentValue.length <= 5){
+            display.textContent = currentValue;
+        } else {
+            display.textContent = currentValue.slice(0,5) + "...";
+        }
+    }
 });
+
+//7. Listen to the decimal
+decimal.addEventListener('click', ()=>{
+    addDecimal();
+})
+
+//7.5 Handle Decimal 
+function addDecimal(){
+    if(!currentValue.includes(".")){
+        currentValue += ".";
+    }
+}
