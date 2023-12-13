@@ -13,8 +13,7 @@ let check = '';
 clear.addEventListener("click", () => {
     display.textContent = 0;
     num2 = '';
-    results = [];
-    symbols = [];
+    num1 = '';
 });
 
 // 2. Basic Operations
@@ -34,8 +33,15 @@ function divide (num1, num2){
     return Number(num1) / Number(num2)
 };
 
+// 3. Listen to the numbers buttons
+numbers.forEach(number => {
+    number.addEventListener("click", function(){
+        num2 += number.textContent
+        display.textContent = Number(num2)   
+    })
+});
 
-//3.  Call certain operator
+//4.  Call certain operator
 function operator (num1, symbol, num2){
     symbol = operations.textContent;
     num1 = Number(num2)
@@ -57,29 +63,6 @@ function operator (num1, symbol, num2){
     
 };
 
-// 8. Button equals 
-equal.addEventListener("click", ()=> {
-    results.push(Number(display.textContent));
-    if(results.length>=2) operator(num1, symbol, num2);
-    if (results.length < 2){
-        num1 = results[0];
-    }
-});
-
-// 4. Listen to the event of the buttons
-for (let j = 0; j < numbers.length; j++) {
-    const number = numbers[j];
-    number.addEventListener("click", () => {
-        num2 += number.textContent;
-        updateUiNumbers();
-    });
-}
-
-// 7. Update UI Numbers
-function updateUiNumbers() {
-    display.textContent = Number(num2);
-}
-
 // 5. Update the UI Symbols
 function updateUiSymbols() {
     if (symbol === '') {
@@ -94,13 +77,13 @@ for (let j = 0; j < operations.length; j++) {
     const operato = operations[j];
     
     operato.addEventListener("click", () => {
-        
         num1 = num2;
         num2 = '';
-        
-        
         operator(num1, symbol, num2);
-        
-        
     });
 };
+
+// 7. Button equals 
+equal.addEventListener("click", ()=> {
+
+});
